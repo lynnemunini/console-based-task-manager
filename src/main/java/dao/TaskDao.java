@@ -5,16 +5,31 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+/**
+ * Provides data access methods for managing task entities
+ */
 public class TaskDao {
+
+    /**
+     * The EntityManagerFactory instance used to create EntityManager instances.
+     */
     private final EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Constructs a new TaskDao instance.
+     * Initializes the EntityManagerFactory using the persistence unit named "task-manager-persistence-unit".
+     */
     public TaskDao() {
         entityManagerFactory = Persistence.createEntityManagerFactory("task-manager-persistence-unit");
     }
 
+    /**
+     * Creates a new task entity in the database.
+     *
+     * @param task the task entity to be created
+     */
     public void createTask(Task task) {
-        try (
-                EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
             entityManager.persist(task);
@@ -24,18 +39,29 @@ public class TaskDao {
         }
     }
 
+    /**
+     * Retrieves a task entity from the database based on the specified task ID.
+     *
+     * @param taskId the ID of the task to retrieve
+     * @return the task entity corresponding to the specified ID, or null if not found
+     */
     public Task getTaskById(Long taskId) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            entityManager.find(Task.class, taskId);
+            return entityManager.find(Task.class, taskId);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    /**
+     * Retrieves all task entities from the database.
+     *
+     * @return a list of all task entities in the database, or null if an error occurs
+     */
     public List<Task> getAllTasks() {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            String jpql = "SELECT t FROM TASK t";
+            String jpql = "SELECT t FROM Task t";
             Query query = entityManager.createQuery(jpql);
             return query.getResultList();
         } catch (Exception e) {
@@ -44,6 +70,11 @@ public class TaskDao {
         return null;
     }
 
+    /**
+     * Updates an existing task entity in the database.
+     *
+     * @param task the task entity to be updated
+     */
     public void updateTask(Task task) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             EntityTransaction transaction = entityManager.getTransaction();
@@ -62,6 +93,11 @@ public class TaskDao {
         }
     }
 
+    /**
+     * Deletes a task entity from the database based on the specified task ID.
+     *
+     * @param taskId the ID of the task to delete
+     */
     public void deleteTask(Long taskId) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             Task task = entityManager.find(Task.class, taskId);

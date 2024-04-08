@@ -6,13 +6,29 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+/**
+ * Provides data access methods for managing user entities
+ */
 public class UserDao {
+
+    /**
+     * The EntityManagerFactory instance used to create EntityManager instances.
+     */
     private final EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Constructs a new UserDao instance.
+     * Initializes the EntityManagerFactory using the persistence unit named "task-manager-persistence-unit".
+     */
     public UserDao() {
         entityManagerFactory = Persistence.createEntityManagerFactory("task-manager-persistence-unit");
     }
 
+    /**
+     * Creates a new user entity in the database.
+     *
+     * @param user the user entity to be created
+     */
     public void createUser(User user) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             EntityTransaction transaction = entityManager.getTransaction();
@@ -24,6 +40,12 @@ public class UserDao {
         }
     }
 
+    /**
+     * Retrieves a user entity from the database based on the specified user ID.
+     *
+     * @param userId the ID of the user to retrieve
+     * @return the user entity corresponding to the specified ID, or null if not found
+     */
     public User getUserById(Long userId) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.find(User.class, userId);
@@ -33,6 +55,11 @@ public class UserDao {
         return null;
     }
 
+    /**
+     * Deletes a user entity from the database based on the specified user ID.
+     *
+     * @param userId the ID of the user to delete
+     */
     public void deleteUser(Long userId) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             User user = entityManager.find(User.class, userId);
