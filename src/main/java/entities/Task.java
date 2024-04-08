@@ -18,32 +18,25 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    /**
-     * The title or name of the task.
-     */
     private String title;
-
-    /**
-     * Additional details or description about the task.
-     */
     private String description;
-
-    /**
-     * The due date or deadline for completing the task.
-     */
     private Date dueDate;
 
     /**
      * The status of the task (e.g., "Pending", "In Progress", "Completed").
      */
     private String status;
-
     /**
      * The timestamp when the task was created.
      */
+
     @Column(name = "created_at")
     private Date createdAt;
+
+    /** The user associated with the task. */
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     public Task() {
