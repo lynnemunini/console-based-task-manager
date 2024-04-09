@@ -2,12 +2,11 @@ package dao;
 
 import entities.Task;
 import jakarta.persistence.*;
+import util.EntityManagerFactoryUtil;
 
 import java.util.List;
 
-/**
- * Provides data access methods for managing task entities
- */
+
 public class TaskDao {
 
     /**
@@ -15,12 +14,9 @@ public class TaskDao {
      */
     private final EntityManagerFactory entityManagerFactory;
 
-    /**
-     * Constructs a new TaskDao instance.
-     * Initializes the EntityManagerFactory using the persistence unit named "task-manager-persistence-unit".
-     */
+
     public TaskDao() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("task-manager-persistence-unit");
+        entityManagerFactory = EntityManagerFactoryUtil.getEntityManagerFactory();
     }
 
     /**

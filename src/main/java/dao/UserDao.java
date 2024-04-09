@@ -4,7 +4,7 @@ import entities.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import util.EntityManagerFactoryUtil;
 
 /**
  * Provides data access methods for managing user entities
@@ -16,12 +16,9 @@ public class UserDao {
      */
     private final EntityManagerFactory entityManagerFactory;
 
-    /**
-     * Constructs a new UserDao instance.
-     * Initializes the EntityManagerFactory using the persistence unit named "task-manager-persistence-unit".
-     */
+
     public UserDao() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("task-manager-persistence-unit");
+        entityManagerFactory = EntityManagerFactoryUtil.getEntityManagerFactory();
     }
 
     /**
