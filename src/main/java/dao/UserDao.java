@@ -80,4 +80,13 @@ public class UserDao {
             e.printStackTrace();
         }
     }
+
+    public User getUserByEmailAndPassword(String email, String password) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            return entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .getSingleResult();
+        }
+    }
 }

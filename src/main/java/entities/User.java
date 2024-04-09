@@ -16,27 +16,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    /**
-     * The username of the user.
-     */
-    private String username;
-
-    /**
-     * The password of the user (hashed for security).
-     */
+    private String email;
     private String password;
 
     /**
      * Constructs a new user with the specified identifier, username, and password.
      *
      * @param id       the unique identifier of the user
-     * @param username the username of the user
+     * @param email    the email of the user
      * @param password the password of the user (hashed for security)
      */
-    public User(Long id, String username, String password) {
+    public User(Long id, String email, String password) {
         this.id = id;
-        this.username = username;
+        this.email = email;
         this.password = password;
     }
 
@@ -63,22 +55,12 @@ public class User {
         this.id = id;
     }
 
-    /**
-     * Returns the username of the user.
-     *
-     * @return the user username
-     */
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    /**
-     * Sets the username of the user.
-     *
-     * @param username the user username
-     */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
