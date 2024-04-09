@@ -15,11 +15,11 @@
     </properties>
 
     <dependencies>
-        <!--        Hibernate ORM-->
+
         <dependency>
             <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.4.4.Final</version>
+            <artifactId>hibernate-community-dialects</artifactId>
+            <version>6.4.1.Final</version>
         </dependency>
 
         <!--        SQLite JDBC library-->
