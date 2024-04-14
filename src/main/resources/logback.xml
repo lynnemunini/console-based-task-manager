@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <!-- Hide logback own logs -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+    <!-- Redirect all logs to a file -->
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>logs/application.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Set the application log level to INFO and redirect to file appender -->
+    <root level="INFO">
+        <appender-ref ref="file"/>
+    </root>
+
+    <!-- Set log level of Hibernate to WARN level -->
+    <logger name="org.hibernate">
+        <level value="WARN"/>
+    </logger>
+
+    <!-- Prevent printing SLF4J warning messages -->
+    <logger name="org.slf4j" level="OFF"/>
+
+</configuration>
