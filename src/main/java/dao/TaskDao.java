@@ -25,15 +25,17 @@ public class TaskDao {
      *
      * @param task the task entity to be created
      */
-    public void createTask(Task task) {
+    public boolean createTask(Task task) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
             entityManager.persist(task);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     /**
@@ -69,13 +71,14 @@ public class TaskDao {
      *
      * @param task the task entity to be updated
      */
-    public void updateTask(Task task) {
+    public boolean updateTask(Task task) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             EntityTransaction transaction = entityManager.getTransaction();
             try {
                 transaction.begin();
                 entityManager.merge(task);
                 transaction.commit();
+                return true;
             } catch (Exception e) {
                 if (transaction.isActive()) {
                     transaction.rollback();
@@ -85,6 +88,7 @@ public class TaskDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     /**
@@ -92,7 +96,7 @@ public class TaskDao {
      *
      * @param taskId the ID of the task to delete
      */
-    public void deleteTask(Long taskId) {
+    public boolean deleteTask(Long taskId) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             Task task = entityManager.find(Task.class, taskId);
             if (task != null) {
@@ -101,6 +105,7 @@ public class TaskDao {
                     transaction.begin();
                     entityManager.remove(task);
                     transaction.commit();
+                    return true;
                 } catch (Exception e) {
                     if (transaction.isActive()) {
                         transaction.rollback();
@@ -111,5 +116,6 @@ public class TaskDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 }

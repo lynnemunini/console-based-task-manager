@@ -13,8 +13,8 @@ public class TaskService {
         taskDao = new TaskDao();
     }
 
-    public void createTask(Task task) {
-        taskDao.createTask(task);
+    public boolean createTask(Task task) {
+        return taskDao.createTask(task);
     }
 
     public Task getTaskById(Long taskId) {
@@ -25,11 +25,11 @@ public class TaskService {
         return taskDao.getAllTasks(user);
     }
 
-    public void updateTask(Task task) {
-        taskDao.updateTask(task);
+    public boolean updateTask(Task task) {
+        return taskDao.updateTask(task);
     }
 
-    public void deleteTask(Long taskId) {
-        taskDao.deleteTask(taskId);
+    public boolean deleteTask(Long taskId) {
+        return taskDao.deleteTask(taskId);
     }
 }

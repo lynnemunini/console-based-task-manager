@@ -1,16 +1,24 @@
+import entities.Task;
 import entities.User;
+import service.TaskService;
 import service.UserService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
+import static util.TaskManagerUtils.isValidDate;
 import static util.TaskManagerUtils.isValidEmail;
 
 public class TaskManagerCLI {
     private final UserService userService;
+    private final TaskService taskService;
     private User currentUser;
 
     public TaskManagerCLI() {
         this.userService = new UserService();
+        this.taskService = new TaskService();
     }
 
     public void start() {
@@ -158,8 +166,11 @@ public class TaskManagerCLI {
 
             switch (choice) {
                 case 1:
-                    // Create task
-                    System.out.println("Create a task");
+                    if (createTask()) {
+                        System.out.println("Task created successfully!");
+                    } else {
+                        System.out.println("Something went wrong!");
+                    }
                     break;
                 case 2:
                     // View Tasks
@@ -193,5 +204,52 @@ public class TaskManagerCLI {
         System.out.println("5. Exit");
         System.out.println();
         System.out.print("Please enter your choice: ");
+    }
+
+    public boolean createTask() {
+        var task = getTaskDetailsFromConsole();
+        if (task != null) {
+            return taskService.createTask(task);
+        }
+        return false;
+    }
+
+    private Task getTaskDetailsFromConsole() {
+        Scanner scanner = new Scanner(System.in);
+        String title;
+        String description;
+        String dueDateStr;
+        Date dueDate;
+        String status;
+
+        do {
+            System.out.print("Enter task title: ");
+            title = scanner.nextLine().trim();
+        } while (title.isEmpty());
+
+        do {
+            System.out.print("Enter task description: ");
+            description = scanner.nextLine().trim();
+        } while (description.isEmpty());
+
+        do {
+            System.out.print("Enter due date (yyyy-MM-dd): ");
+            dueDateStr = scanner.nextLine().trim();
+        } while (dueDateStr.isEmpty() || !isValidDate(dueDateStr));
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            dueDate = sdf.parse(dueDateStr);
+        } catch (ParseException e) {
+            System.out.println("Invalid date format. Please enter the date in yyyy-MM-dd format.");
+            return null;
+        }
+
+        do {
+            System.out.print("Enter task status (Pending/Complete): ");
+            status = scanner.nextLine().trim();
+        } while (status.isEmpty());
+
+        return new Task(title, description, dueDate, status, new Date());
     }
 }
