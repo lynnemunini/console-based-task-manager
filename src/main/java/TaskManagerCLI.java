@@ -3,7 +3,7 @@ import service.UserService;
 
 import java.util.Scanner;
 
-import static util.TextUtils.isValidEmail;
+import static util.TaskManagerUtils.isValidEmail;
 
 public class TaskManagerCLI {
     private final UserService userService;
@@ -136,29 +136,40 @@ public class TaskManagerCLI {
 
 
     private void displayMainMenu() {
-        Scanner scanner = new Scanner(System.in);
-        int choice = 0;
-        getMenu();
-        if (scanner.hasNextInt()) {
-            choice = scanner.nextInt();
-            scanner.nextLine();
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            int choice = 0;
+            getMenu();
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+
+            switch (choice) {
+                case 1:
+                    // Create task
+                    System.out.println("Create a task");
+                    break;
+                case 2:
+                    // View Tasks
+                    System.out.println("View tasks");
+                    break;
+                case 3:
+                    // Update Task
+                    System.out.println("Update a task");
+                    break;
+                case 4:
+                    // Delete Task
+                    System.out.println("Delete a task");
+                    break;
+                case 5:
+                    System.out.println("Exiting Task Manager. Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+
+            }
         }
-
-        switch (choice) {
-            case 1:
-                // Create task
-            case 2:
-                // View Tasks
-            case 3:
-                // Update Task
-            case 4:
-                // Delete Task
-            case 5:
-            default:
-                System.out.println("Invalid choice. Please enter a valid option.");
-
-        }
-
     }
 
     public static void getMenu() {
@@ -169,7 +180,7 @@ public class TaskManagerCLI {
         System.out.println("3. Update Task");
         System.out.println("4. Delete Task");
         System.out.println("5. Exit");
+        System.out.println();
         System.out.print("Please enter your choice: ");
     }
-
 }

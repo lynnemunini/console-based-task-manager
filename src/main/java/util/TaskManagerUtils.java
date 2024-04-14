@@ -1,9 +1,10 @@
 package util;
 
+import java.io.Console;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TextUtils {
+public class TaskManagerUtils {
 
     public static boolean isValidEmail(String email) {
         String regex = "^(.+)@(.+)$";

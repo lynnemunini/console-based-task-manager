@@ -9,6 +9,7 @@ target/
 *.iml
 *.ipr
 /logs/
+taskmanager.db
 
 ### Eclipse ###
 .apt_generated
