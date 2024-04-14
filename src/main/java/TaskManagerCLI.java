@@ -27,15 +27,16 @@ public class TaskManagerCLI {
     }
 
     private static void displayWelcomeMessage() {
-        System.out.println(" ,--.--------.   _,.---._                           _,.---._     ");
-        System.out.println("/==/,  -   , -\\,-.' , -  `.           _,..---._   ,-.' , -  `.   ");
-        System.out.println("\\==\\.-.  - ,-./==/_,  ,  - \\        /==/,   -  \\ /==/_,  ,  - \\  ");
-        System.out.println(" `--`\\==\\- \\ |==|   .=.     |       |==|   _   _\\==|   .=.     | ");
-        System.out.println("      \\==\\_ \\|==|_ : ;=:  - |       |==|  .=.   |==|_ : ;=:  - | ");
-        System.out.println("      |==|- ||==| , '='     |       |==|,|   | -|==| , '='     | ");
-        System.out.println("      |==|, | \\==\\ -    ,_ /        |==|  '='   /\\==\\ -    ,_ /  ");
-        System.out.println("      /==/ -/  '.='. -   .'         |==|-,   _`/  '.='. -   .'   ");
-        System.out.println("      `--`--`    `--`--''           `-.`.____.'     `--`--''      ");
+        System.out.println(" ,---------.    ____       .-'''-. .--.   .--.          .---.  .---.   ___    _  _______    ");
+        System.out.println("\\          \\ .'  __ `.   / _     \\|  | _/  /           |   |  |_ _| .'   |  | |\\  ____  \\  ");
+        System.out.println(" `--.  ,---'/   '  \\  \\ (`' )/`--'| (`' ) /            |   |  ( ' ) |   .'  | || |    \\ |  ");
+        System.out.println("    |   \\   |___|  /  |(_ o _).   |(_ ()_)             |   '-(_{;}}_).'  '_  | || |____/ /  ");
+        System.out.println("    :_ _:      _.-`   | (_,_). '. | (_,_)   __         |      (_,_) '   ( \\.-.||   _ _ '.  ");
+        System.out.println("    (_I_)   .'   _    |.---.  \\  :|  |\\ \\  |  |        | _ _--.   | ' (`. _` /||  ( ' )  \\ ");
+        System.out.println("   (_(=)_)  |  _( )_  |\\    `-'  ||  | \\ `'   /        |( ' ) |   | | (_ (_) _)| (_{;}_) | ");
+        System.out.println("    (_I_)   \\ (_ o _) / \\       / |  |  \\    /         (_{;}_)|   |  \\ /  . \\ /|  (_,_)  / ");
+        System.out.println("    '---'    '.(_,_).'   `-...-'  `--'   `'-'          '(_,_) '---'   ``-'`-'' /_______.'  ");
+        System.out.println("                                                                                          ");
         System.out.println();
         System.out.println("Welcome to Task Manager!");
         System.out.println();
