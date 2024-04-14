@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Task;
+import entities.User;
 import jakarta.persistence.*;
 import util.EntityManagerFactoryUtil;
 
@@ -50,15 +51,12 @@ public class TaskDao {
         return null;
     }
 
-    /**
-     * Retrieves all task entities from the database.
-     *
-     * @return a list of all task entities in the database, or null if an error occurs
-     */
-    public List<Task> getAllTasks() {
+
+    public List<Task> getAllTasks(User user) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            String jpql = "SELECT t FROM Task t";
-            Query query = entityManager.createQuery(jpql);
+            String jpql = "SELECT t FROM Task t WHERE t.user = :user";
+            Query query = entityManager.createQuery(jpql, Task.class);
+            query.setParameter("user", user);
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package service;
 
 import dao.TaskDao;
 import entities.Task;
+import entities.User;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class TaskService {
         return taskDao.getTaskById(taskId);
     }
 
-    public List<Task> getAllTasks() {
-        return taskDao.getAllTasks();
+    public List<Task> getAllTasks(User user) {
+        return taskDao.getAllTasks(user);
     }
 
     public void updateTask(Task task) {

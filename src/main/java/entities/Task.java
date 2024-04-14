@@ -33,8 +33,10 @@ public class Task {
     @Column(name = "created_at")
     private Date createdAt;
 
-    /** The user associated with the task. */
-    @ManyToOne
+    /**
+     * The user associated with the task.
+     */
+    @ManyToOne(fetch = FetchType.LAZY) // Lazy fetch to optimize performance
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -167,5 +169,13 @@ public class Task {
      */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

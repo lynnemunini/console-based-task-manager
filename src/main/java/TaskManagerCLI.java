@@ -7,6 +7,7 @@ import static util.TaskManagerUtils.isValidEmail;
 
 public class TaskManagerCLI {
     private final UserService userService;
+    private User currentUser;
 
     public TaskManagerCLI() {
         this.userService = new UserService();
@@ -19,6 +20,14 @@ public class TaskManagerCLI {
         } else {
             System.out.println("Exiting Task Manager. Goodbye!");
         }
+    }
+
+    private void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
+    private User getCurrentUser() {
+        return this.currentUser;
     }
 
     private static void displayWelcomeMessage() {
@@ -37,7 +46,7 @@ public class TaskManagerCLI {
 
     }
 
-    private static boolean signInOrSignUp(UserService userService) {
+    private boolean signInOrSignUp(UserService userService) {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             int choice = 0;
@@ -67,7 +76,7 @@ public class TaskManagerCLI {
         }
     }
 
-    private static boolean signIn(UserService userService) {
+    private boolean signIn(UserService userService) {
         System.out.println();
         System.out.println("+---------------------------------+");
         System.out.println("|            Sign In              |");
@@ -91,6 +100,7 @@ public class TaskManagerCLI {
 
         boolean isAuthenticated = userService.authenticateUser(email, password);
         if (isAuthenticated) {
+            setCurrentUser(userService.getUserByEmail(email));
             System.out.println("Authentication successful!");
         } else {
             System.out.println("Authentication failed. Incorrect email or password.");
@@ -98,7 +108,7 @@ public class TaskManagerCLI {
         return isAuthenticated;
     }
 
-    private static boolean signUp(UserService userService) {
+    private boolean signUp(UserService userService) {
         System.out.println();
         System.out.println("+---------------------------------+");
         System.out.println("|            Sign Up              |");
@@ -128,6 +138,7 @@ public class TaskManagerCLI {
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setPassword(password);
+        setCurrentUser(newUser);
 
         userService.createUser(newUser);
         System.out.println("User created successfully!");
