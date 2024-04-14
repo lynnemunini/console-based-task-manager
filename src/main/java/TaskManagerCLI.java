@@ -5,6 +5,7 @@ import service.UserService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -173,8 +174,7 @@ public class TaskManagerCLI {
                     }
                     break;
                 case 2:
-                    // View Tasks
-                    System.out.println("View tasks");
+                    viewTasks();
                     break;
                 case 3:
                     // Update Task
@@ -214,6 +214,23 @@ public class TaskManagerCLI {
         return false;
     }
 
+    public void viewTasks() {
+        System.out.println("List of Tasks:");
+        var tasks = taskService.getAllTasks(getCurrentUser());
+        if (tasks == null || tasks.isEmpty()) {
+            System.out.println("Nothing to show here!");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                System.out.println((i + 1) + ". Title: " + task.getTitle());
+                System.out.println("   Description: " + task.getDescription());
+                System.out.println("   Due Date: " + task.getDueDate());
+                System.out.println("   Status: " + task.getStatus());
+                System.out.println();
+            }
+        }
+    }
+
     private Task getTaskDetailsFromConsole() {
         Scanner scanner = new Scanner(System.in);
         String title;
@@ -222,6 +239,7 @@ public class TaskManagerCLI {
         Date dueDate;
         String status;
 
+        System.out.println();
         do {
             System.out.print("Enter task title: ");
             title = scanner.nextLine().trim();
@@ -250,6 +268,9 @@ public class TaskManagerCLI {
             status = scanner.nextLine().trim();
         } while (status.isEmpty());
 
-        return new Task(title, description, dueDate, status, new Date());
+        var task = new Task(title, description, dueDate, status, new Date());
+        task.setUser(getCurrentUser());
+
+        return task;
     }
 }
