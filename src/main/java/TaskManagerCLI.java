@@ -14,15 +14,10 @@ public class TaskManagerCLI {
 
     public void start() {
         displayWelcomeMessage();
-        while (true) {
-            var result = signInOrSignUp(userService);
-            if (result == 0) {
-                displayMainMenu();
-                break;
-            } else if (result == -1) {
-                System.out.println("Exiting...");
-                break;
-            }
+        if (signInOrSignUp(userService)) {
+            displayMainMenu();
+        } else {
+            System.out.println("Exiting Task Manager. Goodbye!");
         }
     }
 
@@ -39,35 +34,37 @@ public class TaskManagerCLI {
         System.out.println("                                                                                          ");
         System.out.println();
         System.out.println("Welcome to Task Manager!");
-        System.out.println();
 
     }
 
-    private static int signInOrSignUp(UserService userService) {
-        Scanner scanner = new Scanner(System.in);
-        int choice = 0;
+    private static boolean signInOrSignUp(UserService userService) {
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            int choice = 0;
+            System.out.println();
+            System.out.println("1. Sign In");
+            System.out.println("2. Sign Up");
+            System.out.println("3. Exit");
+            System.out.println();
+            System.out.print("Please enter your choice: ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
 
-        System.out.println();
-        System.out.println("1. Sign In");
-        System.out.println("2. Sign Up");
-        System.out.println("3. Exit");
-        System.out.print("Enter your choice: ");
-        if (scanner.hasNextInt()) {
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    if (signIn(userService)) return true;
+                    break;
+                case 2:
+                    if (signUp(userService)) return true;
+                    break;
+                case 3:
+                    return false;
+                default:
+                    System.out.println("Invalid choice. Please enter 1, 2, or 3.");
+            }
         }
-
-        switch (choice) {
-            case 1:
-                return signIn(userService) ? 0 : 1;
-            case 2:
-                return signUp(userService) ? 0 : 1;
-            case 3:
-                return -1;
-            default:
-                System.out.println("Invalid choice. Please enter 1, 2, or 3.");
-        }
-        return 1;
     }
 
     private static boolean signIn(UserService userService) {
@@ -139,11 +136,40 @@ public class TaskManagerCLI {
 
 
     private void displayMainMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
+        getMenu();
+        if (scanner.hasNextInt()) {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+        }
+
+        switch (choice) {
+            case 1:
+                // Create task
+            case 2:
+                // View Tasks
+            case 3:
+                // Update Task
+            case 4:
+                // Delete Task
+            case 5:
+            default:
+                System.out.println("Invalid choice. Please enter a valid option.");
+
+        }
+
+    }
+
+    public static void getMenu() {
+        System.out.println();
         System.out.println("Main Menu:");
         System.out.println("1. Create Task");
         System.out.println("2. View Tasks");
+        System.out.println("3. Update Task");
+        System.out.println("4. Delete Task");
         System.out.println("5. Exit");
-        System.out.print("Enter your choice: ");
+        System.out.print("Please enter your choice: ");
     }
 
 }

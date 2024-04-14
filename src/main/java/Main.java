@@ -4,5 +4,4 @@ public class Main {
         TaskManagerCLI taskManagerCLI = new TaskManagerCLI();
         taskManagerCLI.start();
     }
-
 }
