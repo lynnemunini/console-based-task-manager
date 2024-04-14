@@ -18,6 +18,10 @@ public class UserService {
         return userDao.getUserById(userId);
     }
 
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
+    }
+
     public void deleteUser(Long userId) {
         userDao.deleteUser(userId);
     }

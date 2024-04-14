@@ -84,6 +84,18 @@ public class UserDao {
                     .setParameter("email", email)
                     .setParameter("password", password)
                     .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public User getUserByEmail(String email) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            return entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
         }
     }
 }
