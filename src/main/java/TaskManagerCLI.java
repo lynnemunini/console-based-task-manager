@@ -3,6 +3,8 @@ import service.UserService;
 
 import java.util.Scanner;
 
+import static util.TextUtils.isValidEmail;
+
 public class TaskManagerCLI {
     private final UserService userService;
 
@@ -75,10 +77,20 @@ public class TaskManagerCLI {
         System.out.println();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
+        String email;
+        String password;
+
+        do {
+            System.out.print("Enter your email: ");
+            email = scanner.nextLine();
+            if (!isValidEmail(email)) {
+                System.out.println("Invalid email format. Please enter a valid email address.");
+            }
+        } while (!isValidEmail(email));
+
         System.out.print("Enter your password: ");
-        String password = scanner.nextLine();
+        password = scanner.nextLine();
+
         boolean isAuthenticated = userService.authenticateUser(email, password);
         if (isAuthenticated) {
             System.out.println("Authentication successful!");
@@ -96,10 +108,19 @@ public class TaskManagerCLI {
         System.out.println();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
+        String email;
+        String password;
+
+        do {
+            System.out.print("Enter your email: ");
+            email = scanner.nextLine();
+            if (!isValidEmail(email)) {
+                System.out.println("Invalid email format. Please enter a valid email address.");
+            }
+        } while (!isValidEmail(email));
+
         System.out.print("Enter your password: ");
-        String password = scanner.nextLine();
+        password = scanner.nextLine();
 
         if (userService.getUserByEmail(email) != null) {
             System.out.println("User with this email already exists. Please sign in instead.");
