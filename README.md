@@ -1,4 +1,4 @@
-# Console TaskManager
+# Task Manager CLI
 
 ## Overview
 
@@ -29,7 +29,7 @@ using Java and utilizes Hibernate for database interaction.
 
 ## Usage
 
-1. Run the application by executing the main class `Main`.
+1. Run the application by executing the main class `com.grayseal.consoletaskmanager.Main`.
 2. Follow the on-screen instructions to sign in, sign up, create tasks, view tasks, delete tasks or exit the
    application.
 3. Enjoy managing your tasks efficiently with Console TaskManager!
