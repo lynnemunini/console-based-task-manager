@@ -1,4 +1,4 @@
-# Task Manager CLI
+# Console Based Task Manager
 
 ## Overview
 

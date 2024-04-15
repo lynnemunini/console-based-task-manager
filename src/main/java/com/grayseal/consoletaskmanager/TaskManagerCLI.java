@@ -208,7 +208,7 @@ public class TaskManagerCLI {
     }
 
     public boolean createTask() {
-        var task = getTaskDetailsFromConsole();
+        Task task = getTaskDetailsFromConsole();
         if (task != null) {
             return taskService.createTask(task);
         }
@@ -342,7 +342,7 @@ public class TaskManagerCLI {
             status = scanner.nextLine().trim();
         } while (status.isEmpty());
 
-        var task = new Task(title, description, dueDate, status, new Date());
+        Task task = new Task(title, description, dueDate, status, new Date());
         task.setUser(getCurrentUser());
 
         return task;
