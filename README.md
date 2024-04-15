@@ -3,8 +3,7 @@
 ## Overview
 
 Console TaskManager is a simple command-line application designed to help users manage their tasks efficiently. The
-project is built
-using Java and utilizes Hibernate for database interaction.
+project is built using Java and utilizes Hibernate for database interaction.
 
 ## Features
 
@@ -29,10 +28,11 @@ using Java and utilizes Hibernate for database interaction.
 
 ## Usage
 
-1. Run the application by executing the main class `com.grayseal.consoletaskmanager.Main`.
-2. Follow the on-screen instructions to sign in, sign up, create tasks, view tasks, delete tasks or exit the
-   application.
-3. Enjoy managing your tasks efficiently with Console TaskManager!
+Run the application using the following command:
+
+```bash
+java -jar out/artifacts/console_based_task_manager_jar/console-based-task-manager.jar
+```
 
 ## Contributing
 
