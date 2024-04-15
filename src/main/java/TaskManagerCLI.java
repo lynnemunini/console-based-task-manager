@@ -178,8 +178,7 @@ public class TaskManagerCLI {
                     viewTasks();
                     break;
                 case 3:
-                    // Update Task
-                    System.out.println("Update a task");
+                    updateTask();
                     break;
                 case 4:
                     deleteTask();
@@ -256,6 +255,52 @@ public class TaskManagerCLI {
         Task taskToDelete = tasks.get(choice - 1);
         taskService.deleteTask(taskToDelete.getId());
         System.out.println("Task deleted successfully!");
+    }
+
+    public void updateTask() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Select task to update (Enter the number):");
+
+        viewTasks();
+
+        int choice;
+        if (scanner.hasNextInt()) {
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+        } else {
+            System.out.println("Invalid input. Please enter a valid number.");
+            return;
+        }
+
+        if (choice <= 0 || choice > tasks.size()) {
+            System.out.println("Invalid task number. Please select a valid task number.");
+            return;
+        }
+
+        Task taskToUpdate = tasks.get(choice - 1);
+
+        System.out.println();
+        System.out.println("Current Task Details:");
+        System.out.println("Title: " + taskToUpdate.getTitle());
+        System.out.println("Description: " + taskToUpdate.getDescription());
+        System.out.println("Due Date: " + taskToUpdate.getDueDate());
+        System.out.println("Status: " + taskToUpdate.getStatus());
+
+        System.out.println();
+        System.out.println("Enter new task details:");
+
+        Task updatedTask = getTaskDetailsFromConsole();
+        if (updatedTask != null) {
+            updatedTask.setId(taskToUpdate.getId()); // Ensure the ID remains the same
+            if (taskService.updateTask(updatedTask)) {
+                System.out.println("Task updated successfully!");
+            } else {
+                System.out.println("Failed to update task. Please try again.");
+            }
+        } else {
+            System.out.println("Failed to update task. Invalid task details.");
+        }
     }
 
     private Task getTaskDetailsFromConsole() {
