@@ -5,8 +5,8 @@ import service.UserService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import static util.TaskManagerUtils.isValidDate;
@@ -16,6 +16,7 @@ public class TaskManagerCLI {
     private final UserService userService;
     private final TaskService taskService;
     private User currentUser;
+    private List<Task> tasks;
 
     public TaskManagerCLI() {
         this.userService = new UserService();
@@ -181,8 +182,7 @@ public class TaskManagerCLI {
                     System.out.println("Update a task");
                     break;
                 case 4:
-                    // Delete Task
-                    System.out.println("Delete a task");
+                    deleteTask();
                     break;
                 case 5:
                     System.out.println("Exiting Task Manager. Goodbye!");
@@ -215,8 +215,9 @@ public class TaskManagerCLI {
     }
 
     public void viewTasks() {
+        System.out.println();
         System.out.println("List of Tasks:");
-        var tasks = taskService.getAllTasks(getCurrentUser());
+        tasks = taskService.getAllTasks(getCurrentUser());
         if (tasks == null || tasks.isEmpty()) {
             System.out.println("Nothing to show here!");
         } else {
@@ -229,6 +230,32 @@ public class TaskManagerCLI {
                 System.out.println();
             }
         }
+    }
+
+    public void deleteTask() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Select task to delete (Enter the number):");
+
+        viewTasks();
+
+        int choice;
+        if (scanner.hasNextInt()) {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+        } else {
+            System.out.println("Invalid input. Please enter a valid number.");
+            return;
+        }
+
+        if (choice <= 0 || choice > tasks.size()) {
+            System.out.println("Invalid task number. Please select a valid task number.");
+            return;
+        }
+
+        Task taskToDelete = tasks.get(choice - 1);
+        taskService.deleteTask(taskToDelete.getId());
+        System.out.println("Task deleted successfully!");
     }
 
     private Task getTaskDetailsFromConsole() {
